@@ -25,12 +25,15 @@ namespace Archer
         // Método que se llamará cuando el enemigo reciba un impacto
         public void Hit()
         {
-         
+            hitPoints -= 1;
         }
 
         private void Die()
         {
-           
+           if(hitPoints == 0)
+            {
+                
+            }
         }
     }
 

@@ -25,7 +25,6 @@ namespace Archer
         // Una referencia a un transform que servirá de punto de referencia para disparar la flecha
         [SerializeField]
         private Transform handPosition;
-
       
 
         private Animator animator;
@@ -53,16 +52,14 @@ namespace Archer
 
 
             // Instanciar una flecha
-           
-
             // Colocar la flecha en el punto de referencia de la mano de la arquera
-         
+            GameObject arrow = Instantiate(arrowPrefab, handPosition.position, Quaternion.Euler(0, 0, 0));
 
             // Orientar la flecha hacia delante con respecto a la arquera
-           
+            arrow.transform.rotation = this.transform.rotation;
 
             // Aplicar una fuerza a la flecha para que salga disparada
-          
+            arrow.GetComponent<Rigidbody>().AddForce(this.transform.forward*force);
         }
     }
 
