@@ -42,14 +42,13 @@ namespace Archer
         private void Action_performed(InputAction.CallbackContext obj)
         {
             // Cuando se pulsa espacio, producimos un disparo
-            animator.SetTrigger("Shoot");
             StartCoroutine(Shoot());
         }
 
         private IEnumerator Shoot()
         {
-          
 
+            animator.SetTrigger("Shoot");
             yield return new WaitForSeconds(0.3f);
 
 
