@@ -15,7 +15,7 @@ namespace Archer
 
         public GameObject sun;
         public GameObject night;
-
+        private AudioSource sound;
         private Animator animator;
 
         public event IScoreProvider.ScoreAddedHandler OnScoreAdded;
@@ -25,6 +25,7 @@ namespace Archer
         private void Awake()
         {
             animator = GetComponent<Animator>();
+            sound = GetComponent<AudioSource>();
         }
 
         // Método que se llamará cuando el enemigo reciba un impacto
@@ -33,15 +34,16 @@ namespace Archer
             hitPoints -= 1;
             if (hitPoints <= 0)
             {
-                coroutine = StartCoroutine(DieCoroutine());
-                //Die();
+                Die();
             }
+            sound.Play();
         }
 
-        //private void Die()
-        //{
-        //    Destroy(this.gameObject);
-        //}
+        private void Die()
+        {
+            animator.SetTrigger("Die");
+            coroutine = StartCoroutine(DieCoroutine());
+        }
 
         IEnumerator DieCoroutine()
         {

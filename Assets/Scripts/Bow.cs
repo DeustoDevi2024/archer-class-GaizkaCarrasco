@@ -25,8 +25,8 @@ namespace Archer
         // Una referencia a un transform que servirá de punto de referencia para disparar la flecha
         [SerializeField]
         private Transform handPosition;
-      
 
+        private AudioSource sound;
         private Animator animator;
 
         private void Awake()
@@ -36,11 +36,13 @@ namespace Archer
             fireInputReference.action.performed += Action_performed;
 
             animator = GetComponent<Animator>();
+            sound = GetComponent<AudioSource>();
         }
 
         private void Action_performed(InputAction.CallbackContext obj)
         {
             // Cuando se pulsa espacio, producimos un disparo
+            animator.SetTrigger("Shoot");
             StartCoroutine(Shoot());
         }
 
@@ -60,6 +62,7 @@ namespace Archer
 
             // Aplicar una fuerza a la flecha para que salga disparada
             arrow.GetComponent<Rigidbody>().AddForce(this.transform.forward*force);
+            sound.Play();
         }
     }
 
