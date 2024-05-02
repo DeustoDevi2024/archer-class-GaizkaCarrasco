@@ -22,6 +22,7 @@ namespace Archer
 
         private IGameStateProvider gameStateProvider;//new PlayerPrefsGameStateProvider();
 
+
         private void Awake()
         {
             if (Instance != null)
@@ -36,6 +37,7 @@ namespace Archer
             gameStateProvider = new JsonGameStateProvider("state.json");
 
             gameState = gameStateProvider.Load();
+
         }
 
         public GameConfig GetGameConfig()

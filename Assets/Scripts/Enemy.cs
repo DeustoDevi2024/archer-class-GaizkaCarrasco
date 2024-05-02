@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Archer
 {
@@ -22,10 +23,13 @@ namespace Archer
 
         Coroutine coroutine;
 
+        public static List<Enemy> enemies = new List<Enemy>();
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
             sound = GetComponent<AudioSource>();
+            enemies.Add(this);
         }
 
         // Método que se llamará cuando el enemigo reciba un impacto
@@ -52,6 +56,12 @@ namespace Archer
             yield return new WaitForSeconds(3);
             sun.SetActive(false);
             night.SetActive(true);
+            enemies.Remove(this);
+            if (enemies.Count == 0)
+            {
+                SceneManager.LoadScene("Game");
+                Debug.Log("Cargar escena");
+            }
             Destroy(this.gameObject);
         }
     }
